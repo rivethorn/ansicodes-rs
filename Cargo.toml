@@ -1,0 +1,16 @@
+[package]
+name = "ansicodes"
+version = "0.1.0"
+edition = "2024"
+authors = ["Hassan Q <hassanak813@outlook.com>"]
+description = "Simple ANSI escape code constants for colors and text styles."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/rivethron/ansicodes"
+homepage = "https://github.com/rivethron/ansicodes"
+keywords = ["ansi", "terminal", "color", "console", "cli"]
+categories = ["command-line-interface"]
+
+[lib]
+name = "ansicodes"
+path = "src/lib.rs"
