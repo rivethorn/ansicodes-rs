@@ -6,8 +6,8 @@ authors = ["Hassan Q <hassanak813@outlook.com>"]
 description = "Simple ANSI escape code constants for colors and text styles."
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/rivethron/ansicodes"
-homepage = "https://github.com/rivethron/ansicodes"
+repository = "https://github.com/rivethorn/ansicodes-rs"
+homepage = "https://github.com/rivethorn/ansicodes-rs"
 keywords = ["ansi", "terminal", "color", "console", "cli"]
 categories = ["command-line-interface"]
 
