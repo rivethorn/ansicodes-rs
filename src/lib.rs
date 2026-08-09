@@ -389,3 +389,84 @@ pub fn hyperlink(uri: &str) -> String {
 pub fn close_hyperlink() -> String {
     "\x1b]8;;\x07".to_owned()
 }
+
+/// Set the terminal clipboard to the given `base64`-encoded string.
+///
+/// Valid values are `c` (clipboard) or `p` (primary selection). Providing an
+/// empty `base64` requests the terminal to report the current contents.
+#[must_use]
+pub fn set_clipboard(base64: &str) -> String {
+    format!("\x1b]52;c;{base64}\x07")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn styles() {
+        assert_eq!(RESET, "\x1b[0m");
+        assert_eq!(BOLD, "\x1b[1m");
+        assert_eq!(DIM, "\x1b[2m");
+        assert_eq!(ITALIC, "\x1b[3m");
+        assert_eq!(UNDERLINE, "\x1b[4m");
+        assert_eq!(BLINK, "\x1b[5m");
+        assert_eq!(REVERSE, "\x1b[7m");
+        assert_eq!(HIDDEN, "\x1b[8m");
+        assert_eq!(STRIKETHROUGH, "\x1b[9m");
+        assert_eq!(UNDERLINE_DOUBLE, "\x1b[21m");
+        assert_eq!(FRAMED, "\x1b[51m");
+        assert_eq!(ENCIRCLED, "\x1b[52m");
+        assert_eq!(OVERLINED, "\x1b[53m");
+        assert_eq!(FONT_PRIMARY, "\x1b[10m");
+        assert_eq!(FONT_FRAKTUR, "\x1b[20m");
+    }
+
+    #[test]
+    fn colors() {
+        assert_eq!(RED, "\x1b[31m");
+        assert_eq!(BRIGHT_WHITE, "\x1b[97m");
+        assert_eq!(BG_BLUE, "\x1b[44m");
+        assert_eq!(BG_BRIGHT_GREEN, "\x1b[102m");
+        assert_eq!(FG_DEFAULT, "\x1b[39m");
+        assert_eq!(BG_DEFAULT, "\x1b[49m");
+    }
+
+    #[test]
+    fn control_and_cursor() {
+        assert_eq!(ESC, "\x1b");
+        assert_eq!(CSI, "\x1b[");
+        assert_eq!(OSC, "\x1b]");
+        assert_eq!(ST, "\x1b\\");
+        assert_eq!(BELL, "\x07");
+        assert_eq!(CURSOR_UP, "\x1b[A");
+        assert_eq!(CURSOR_HOME, "\x1b[H");
+        assert_eq!(ERASE_DISPLAY_ALL, "\x1b[2J");
+        assert_eq!(HIDE_CURSOR, "\x1b[?25l");
+        assert_eq!(SHOW_CURSOR, "\x1b[?25h");
+        assert_eq!(ENTER_ALTERNATE_SCREEN, "\x1b[?1049h");
+        assert_eq!(EXIT_ALTERNATE_SCREEN, "\x1b[?1049l");
+        assert_eq!(DEC_SAVE_CURSOR, "\x1b7");
+        assert_eq!(DEC_RESTORE_CURSOR, "\x1b8");
+    }
+
+    #[test]
+    fn helpers() {
+        assert_eq!(rgb(255, 128, 0), "\x1b[38;2;255;128;0m");
+        assert_eq!(bg_rgb(0, 0, 0), "\x1b[48;2;0;0;0m");
+        assert_eq!(color256(208), "\x1b[38;5;208m");
+        assert_eq!(bg_color256(27), "\x1b[48;5;27m");
+        assert_eq!(cursor_position(2, 5), "\x1b[2;5H");
+        assert_eq!(cursor_up(3), "\x1b[3A");
+        assert_eq!(cursor_down(1), "\x1b[1B");
+        assert_eq!(cursor_forward(2), "\x1b[2C");
+        assert_eq!(cursor_back(4), "\x1b[4D");
+        assert_eq!(set_window_title("hi"), "\x1b]0;hi\x07");
+        assert_eq!(
+            hyperlink("https://example.com"),
+            "\x1b]8;;https://example.com\x07"
+        );
+        assert_eq!(close_hyperlink(), "\x1b]8;;\x07");
+        assert_eq!(set_clipboard("QUJD"), "\x1b]52;c;QUJD\x07");
+    }
+}
