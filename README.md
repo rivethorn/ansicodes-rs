@@ -7,13 +7,12 @@ No macros, no formatting wrappers, no builder APIs. Just constants.
 
 ## Features
 
-* Standard ANSI foreground colors
-* Bright ANSI foreground colors
-* Standard ANSI background colors
-* Bright ANSI background colors
-* Text styles such as bold, italic, underline, and strike-through
-* ANSI 256-color support
-* 24-bit truecolor RGB support
+* Standard & bright ANSI foreground/background colors
+* Text styles: bold, italic, underline, strike-through, frames, overline, double underline, and more
+* ANSI 256-color and 24-bit truecolor RGB support
+* Cursor movement, screen clearing, and scrolling (CSI sequences)
+* Hide/show cursor and alternate screen buffer (DEC sequences)
+* OSC sequences: window title and hyperlinks
 * Zero dependencies
 * No `unsafe` code
 
@@ -21,7 +20,7 @@ No macros, no formatting wrappers, no builder APIs. Just constants.
 
 ```toml
 [dependencies]
-ansicodes = "0.1"
+ansicodes = "0.2"
 ```
 
 ## Example
@@ -136,6 +135,28 @@ println!("{}Orange{}", rgb(255, 165, 0), RESET);
 println!("{}Purple Background{}", bg_rgb(128, 0, 255), RESET);
 ```
 
+## Sequences
+
+Beyond colors and styles, the crate exposes escape sequences for cursor control,
+screen clearing, and the alternate screen buffer:
+
+```rust
+use ansicodes::*;
+
+print!("{HIDE_CURSOR}{ENTER_ALTERNATE_SCREEN}");
+print!("{CURSOR_HOME}{ERASE_DISPLAY_ALL}");
+println!("Hello in a clean screen!");
+print!("{EXIT_ALTERNATE_SCREEN}{SHOW_CURSOR}");
+```
+
+It also provides small helpers for OSC sequences:
+
+```rust
+use ansicodes::*;
+
+println!("{}{}ansicodes{}", set_window_title("ansicodes"), hyperlink("https://github.com/rivethorn/ansicodes-rs"), close_hyperlink());
+```
+
 ## Why?
 
 Most ANSI crates provide formatting APIs, builder patterns, traits, or macros.
@@ -150,4 +171,4 @@ Sometimes all you need is the escape sequence itself.
 
 ## License
 
-MIT —  see `LICENSE`.
+MIT — see `LICENSE`.

@@ -169,3 +169,223 @@ pub fn color256(index: u8) -> String {
 pub fn bg_color256(index: u8) -> String {
     format!("\x1b[48;5;{index}m")
 }
+
+//
+// Additional text styles (SGR)
+//
+
+/// Rapidly blinking text. Not widely supported.
+pub const BLINK_RAPID: &str = "\x1b[6m";
+
+/// Select the primary font.
+pub const FONT_PRIMARY: &str = "\x1b[10m";
+
+/// Select an alternative font.
+pub const FONT_ALT1: &str = "\x1b[11m";
+
+/// Select an alternative font.
+pub const FONT_ALT2: &str = "\x1b[12m";
+
+/// Select an alternative font.
+pub const FONT_ALT3: &str = "\x1b[13m";
+
+/// Select an alternative font.
+pub const FONT_ALT4: &str = "\x1b[14m";
+
+/// Select an alternative font.
+pub const FONT_ALT5: &str = "\x1b[15m";
+
+/// Select an alternative font.
+pub const FONT_ALT6: &str = "\x1b[16m";
+
+/// Select an alternative font.
+pub const FONT_ALT7: &str = "\x1b[17m";
+
+/// Select an alternative font.
+pub const FONT_ALT8: &str = "\x1b[18m";
+
+/// Select an alternative font.
+pub const FONT_ALT9: &str = "\x1b[19m";
+
+/// Select Fraktur (Blackletter) font. Rarely supported.
+pub const FONT_FRAKTUR: &str = "\x1b[20m";
+
+/// Double underline. Sometimes interpreted as "disable bold."
+pub const UNDERLINE_DOUBLE: &str = "\x1b[21m";
+
+/// Remove dim formatting.
+pub const NO_DIM: &str = "\x1b[22m";
+
+/// Enable proportional spacing.
+pub const PROPORTIONAL_SPACING: &str = "\x1b[26m";
+
+/// Reset foreground color to the default.
+pub const FG_DEFAULT: &str = "\x1b[39m";
+
+/// Reset background color to the default.
+pub const BG_DEFAULT: &str = "\x1b[49m";
+
+/// Disable proportional spacing.
+pub const NO_PROPORTIONAL_SPACING: &str = "\x1b[50m";
+
+/// Frame the text.
+pub const FRAMED: &str = "\x1b[51m";
+
+/// Encircle the text.
+pub const ENCIRCLED: &str = "\x1b[52m";
+
+/// Overline the text.
+pub const OVERLINED: &str = "\x1b[53m";
+
+/// Remove frame and encircle formatting.
+pub const NO_FRAME_ENCIRCLE: &str = "\x1b[54m";
+
+/// Remove overline formatting.
+pub const NO_OVERLINE: &str = "\x1b[55m";
+
+//
+// Control characters
+//
+
+/// Bell (audible beep).
+pub const BELL: &str = "\x07";
+
+/// Backspace.
+pub const BACKSPACE: &str = "\x08";
+
+/// Escape.
+pub const ESC: &str = "\x1b";
+
+/// Control Sequence Introducer.
+pub const CSI: &str = "\x1b[";
+
+/// Operating System Command.
+pub const OSC: &str = "\x1b]";
+
+/// String Terminator.
+pub const ST: &str = "\x1b\\";
+
+//
+// Cursor movement & editing (CSI)
+//
+
+/// Move the cursor up one line.
+pub const CURSOR_UP: &str = "\x1b[A";
+
+/// Move the cursor down one line.
+pub const CURSOR_DOWN: &str = "\x1b[B";
+
+/// Move the cursor forward one column.
+pub const CURSOR_FORWARD: &str = "\x1b[C";
+
+/// Move the cursor back one column.
+pub const CURSOR_BACK: &str = "\x1b[D";
+
+/// Move the cursor to the home position (top-left).
+pub const CURSOR_HOME: &str = "\x1b[H";
+
+/// Erase from the cursor to the end of the display.
+pub const ERASE_DISPLAY: &str = "\x1b[J";
+
+/// Erase the entire display.
+pub const ERASE_DISPLAY_ALL: &str = "\x1b[2J";
+
+/// Erase from the cursor to the end of the line.
+pub const ERASE_LINE: &str = "\x1b[K";
+
+/// Scroll the display up one line.
+pub const SCROLL_UP: &str = "\x1b[S";
+
+/// Scroll the display down one line.
+pub const SCROLL_DOWN: &str = "\x1b[T";
+
+//
+// Private CSI / DEC sequences
+//
+
+/// Save the current cursor position.
+pub const SAVE_CURSOR: &str = "\x1b[s";
+
+/// Restore a saved cursor position.
+pub const RESTORE_CURSOR: &str = "\x1b[u";
+
+/// Enable auto-wrap mode.
+pub const AUTO_WRAP_ON: &str = "\x1b[?7h";
+
+/// Disable auto-wrap mode.
+pub const AUTO_WRAP_OFF: &str = "\x1b[?7l";
+
+/// Show the text cursor.
+pub const SHOW_CURSOR: &str = "\x1b[?25h";
+
+/// Hide the text cursor.
+pub const HIDE_CURSOR: &str = "\x1b[?25l";
+
+/// Enter the alternate screen buffer.
+pub const ENTER_ALTERNATE_SCREEN: &str = "\x1b[?1049h";
+
+/// Exit the alternate screen buffer.
+pub const EXIT_ALTERNATE_SCREEN: &str = "\x1b[?1049l";
+
+//
+// Fp escape sequences (DEC)
+//
+
+/// DEC: save the current cursor position.
+pub const DEC_SAVE_CURSOR: &str = "\x1b7";
+
+/// DEC: restore a saved cursor position.
+pub const DEC_RESTORE_CURSOR: &str = "\x1b8";
+
+/// Move the cursor to the given `row` and `column` (1-based).
+#[must_use]
+pub fn cursor_position(row: u16, col: u16) -> String {
+    format!("\x1b[{row};{col}H")
+}
+
+/// Move the cursor up by `lines` lines.
+#[must_use]
+pub fn cursor_up(lines: u16) -> String {
+    format!("{CSI}{lines}A")
+}
+
+/// Move the cursor down by `lines` lines.
+#[must_use]
+pub fn cursor_down(lines: u16) -> String {
+    format!("{CSI}{lines}B")
+}
+
+/// Move the cursor forward by `cols` columns.
+#[must_use]
+pub fn cursor_forward(cols: u16) -> String {
+    format!("{CSI}{cols}C")
+}
+
+/// Move the cursor back by `cols` columns.
+#[must_use]
+pub fn cursor_back(cols: u16) -> String {
+    format!("{CSI}{cols}D")
+}
+
+//
+// OSC sequences
+//
+
+/// Set the terminal window title, terminated with a Bell.
+#[must_use]
+pub fn set_window_title(title: &str) -> String {
+    format!("\x1b]0;{title}\x07")
+}
+
+/// Emit an OSC hyperlink sequence opening `uri`. The following text is shown
+/// as a link until the link is closed with [`close_hyperlink`].
+#[must_use]
+pub fn hyperlink(uri: &str) -> String {
+    format!("\x1b]8;;{uri}\x07")
+}
+
+/// Close an OSC hyperlink opened with [`hyperlink`].
+#[must_use]
+pub fn close_hyperlink() -> String {
+    "\x1b]8;;\x07".to_owned()
+}
