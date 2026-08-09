@@ -20,7 +20,7 @@ No macros, no formatting wrappers, no builder APIs. Just constants.
 
 ```toml
 [dependencies]
-ansicodes = "0.2"
+ansicodes = "0.2.1"
 ```
 
 ## Example
@@ -62,6 +62,12 @@ Success!           // underlined green
 | `REVERSE`       | Reverse foreground and background |
 | `HIDDEN`        | Hidden text                       |
 | `STRIKETHROUGH` | Strikethrough text                |
+| `UNDERLINE_DOUBLE` | Double-underlined text         |
+| `FRAMED`        | Framed text                       |
+| `ENCIRCLED`     | Encircled text                    |
+| `OVERLINED`     | Overlined text                    |
+| `FG_DEFAULT`    | Reset foreground to default       |
+| `BG_DEFAULT`    | Reset background to default       |
 
 ## Available Colors
 
