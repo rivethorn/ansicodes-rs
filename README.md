@@ -1,7 +1,10 @@
+<h1>
+  ansicodes
+  <a href="https://docs.rs/ansicodes/latest/ansicodes/"><img align="right" alt="docs.rs" src="https://img.shields.io/docsrs/ansicodes?style=for-the-badge&logo=docsdotrs&labelColor=black"></a>
+  <a href="https://github.com/rivethorn/ansicodes-rs/actions"><img align="right" alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/rivethorn/ansicodes-rs/rust.yml?style=for-the-badge&labelColor=black"></a>
+</h1>
 
-# ansicodes
-
-A tiny, dependency-free Rust crate providing ANSI escape sequences as string constants for terminal colors and text styles.
+A tiny, dependency-free Rust crate providing ANSI escape sequences as string constants for all your simple terminal needs.
 
 No macros, no formatting wrappers, no builder APIs. Just constants.
 
