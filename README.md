@@ -180,4 +180,4 @@ Sometimes all you need is the escape sequence itself.
 
 ## License
 
-MIT — see `LICENSE`.
+MIT — see [`LICENSE`](/LICENSE).
